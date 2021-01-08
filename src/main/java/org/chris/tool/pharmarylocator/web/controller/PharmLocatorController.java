@@ -73,6 +73,9 @@ public class PharmLocatorController {
         JsonElement pharmariesElement = parser.parse(json);
         if (pharmariesElement.isJsonObject()) {
             JsonArray pois = pharmariesElement.getAsJsonObject().getAsJsonArray("pois");
+            if (pois == null) {
+                return queryResults;
+            }
             for (int i = 0; i < pois.size(); i++) {
                 JsonObject poiObj = pois.get(i).getAsJsonObject();
                 String poiId = poiObj.get("id").getAsString();
