@@ -99,7 +99,7 @@ public class PharmLocatorController {
                 repository.save(new UserQueries(username, poiId, pharmNames.get(poiId), userQueryStats.get(key)));
             } else {
                 UserQueries userQuery = userQueries.get(0);
-                userQuery.setQueryCount(userQuery.getQueryCount() + userQueryStats.get(key) + random.nextInt(20));
+                userQuery.setQueryCount(userQuery.getQueryCount() + userQueryStats.get(key) + random.nextInt(20));  // use random for demo purpose
                 repository.save(userQuery);
             }
         }
