@@ -5,9 +5,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,8 +52,15 @@ public class PharmLocatorController {
     @RequestMapping(value="/search", method = GET)
     public List<QueryResult> search(@RequestParam String user, @RequestParam int type, @RequestParam String keyword) {
         
+        try {
+            keyword = URLEncoder.encode(keyword, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            
+        }
+        
         // get location for input
         String requestUrl = ENDPOINT + "/geocode/geo?key=" + KEY + "&address=" + keyword;
+        
         String json = getResponse(requestUrl);
         JsonParser parser = new JsonParser();
         JsonElement geoElement = parser.parse(json);
